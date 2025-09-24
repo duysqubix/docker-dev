@@ -17,16 +17,16 @@ WORKDIR /home/devmate
 
 RUN ls
 RUN curl https://gist.githubusercontent.com/duysqubix/27084d18b99181c60eea9c3d2a321fce/raw/duysqubix-zshrc \
-  >> /home/devmate/.zshrc
+  >> /tmp/.zshrc
 
-RUN HOME=/home/devmate /bin/zsh /home/devmate/.zshrc
+RUN HOME=/home/devmate /bin/zsh /tmp/.zshrc
 RUN chown -R $(id -u devmate):$(id -g devmate) /home/devmate
 RUN chown -R $(id -u devmate):$(id -g devmate) /tmp
 
 USER devmate
-RUN mv /home/devmate/.zshrc.pre-oh-my-zsh /home/devmate/.zshrc
+RUN mv /tmp/.zshrc /home/devmate/.zshrc
 
-ENTRYPOINT ZSH_FORCE_UPDATE=1 /bin/zsh
+ENTRYPOINT ["/bin/zsh", "-c", "ZSH_FORCE_UPDATE=1 /bin/zsh"]
 
 
 
